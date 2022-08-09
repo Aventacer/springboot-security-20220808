@@ -1,10 +1,10 @@
-package com.study.security;
+package com.study.security_jaewon;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SecurityApplicationTests {
+class SecurityJaewonApplicationTests {
 
 	@Test
 	void contextLoads() {
