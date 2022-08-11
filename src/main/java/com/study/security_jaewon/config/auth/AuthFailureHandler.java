@@ -17,9 +17,11 @@ public class AuthFailureHandler implements AuthenticationFailureHandler{
 		
 		System.out.println(exception.getMessage());
 		
+		//response.sendRedirect("/auth/signup");
+		
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
-		response.getWriter().print("<html><head><body><script>alert(\"로그인실패\");history.back();</script></body></head></html>");
+		response.getWriter().print("<html><head><body><script>alert(\"로그인실패\\n정보를 다시 확인하세요.\");history.back();</script></body></head></html>");
 	}
 
 }
