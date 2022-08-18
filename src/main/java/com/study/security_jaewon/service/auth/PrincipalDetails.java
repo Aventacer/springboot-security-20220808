@@ -3,23 +3,33 @@ package com.study.security_jaewon.service.auth;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.study.security_jaewon.domain.user.User;
 
 import lombok.Data;
 
 @Data
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
 	private static final long serialVersionUID = 1L;
 
 	private User user;
+	private Map<String, Object> attribute;
 	
+	// 일반 로그인시
 	public PrincipalDetails(User user) {
 		this.user = user;
+	}
+	
+	//OAuth2 로그인시
+	public PrincipalDetails(User user, Map<String, Object> attribute) {
+		this.user = user;
+		this.attribute = attribute;
 	}
 	
 	@Override
@@ -106,6 +116,16 @@ public class PrincipalDetails implements UserDetails {
 	public boolean isEnabled() {
 		
 		return true;
+	}
+
+	@Override
+	public Map<String, Object> getAttributes() {
+		return attribute;
+	}
+
+	@Override
+	public String getName() {
+		return user.getUser_name();
 	}
 	
 }
