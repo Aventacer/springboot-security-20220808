@@ -6,6 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
+import org.springframework.web.filter.CorsFilter;
 
 import com.study.security_jaewon.config.auth.AuthFailureHandler;
 import com.study.security_jaewon.service.auth.PrincipalOauth2UserService;
@@ -17,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
+	private final CorsFilter corsFilter;
 	private final PrincipalOauth2UserService principalOauth2UserService;
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -27,6 +30,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// 토큰해제
 		http.csrf().disable();
+		http.headers()
+			.frameOptions()
+			.disable()
+			.addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS","ALLOW-FROM /**"));
+		http.addFilter(corsFilter);					// Cors 인증을 하지 않겠다.
 		// 요청이 들어왔을때 인증
 		http.authorizeRequests()
 			.antMatchers("/api/v1/grant/test/user/**")

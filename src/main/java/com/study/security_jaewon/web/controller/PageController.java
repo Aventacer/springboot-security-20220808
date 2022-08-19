@@ -30,7 +30,7 @@ public class PageController {
 		
 	}
 	
-	@GetMapping("mypage")
+	@GetMapping("/mypage")
 	public String loadMyPage() {
 		return "mypage";
 	}
