@@ -32,8 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.headers()
 			.frameOptions()
-			.disable()
-			.addHeaderWriter(new StaticHeadersWriter("X-FRAME-OPTIONS","ALLOW-FROM /**"));
+			.disable();
 		http.addFilter(corsFilter);					// Cors 인증을 하지 않겠다.
 		// 요청이 들어왔을때 인증
 		http.authorizeRequests()
