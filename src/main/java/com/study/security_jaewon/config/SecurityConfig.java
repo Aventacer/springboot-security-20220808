@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.headers()
 			.frameOptions()
 			.disable();
-		http.addFilter(corsFilter);					// Cors 인증을 하지 않겠다.
+//		http.addFilter(corsFilter);					// Cors 인증을 하지 않겠다.
 		// 요청이 들어왔을때 인증
 		http.authorizeRequests()
 			.antMatchers("/api/v1/grant/test/user/**")
@@ -42,10 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/api/v1/grant/test/manager/**")
 			.access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
 			
+			.antMatchers("/notice/addition", "/notice/modification/**")
+			//.access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+			.hasRole("ADMIN")
+			
 			.antMatchers("/api/v1/grant/test/admin/**")
 			.access("hasRole('ROLE_ADMIN')")
 			
-			.antMatchers("/","/index","/mypage/**")		// 우리가 지정한 요청
+			.antMatchers("/","/index","/mypage/**")		// 우리가 지정한 요청				
 			.authenticated()							// 인증을 거쳐라
 			
 			.anyRequest()								// 다른 모든 요청

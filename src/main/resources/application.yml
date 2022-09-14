@@ -43,10 +43,18 @@ spring:
     static-path-pattern: /static/**
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://web-study.cvrlrxqnrfxt.ap-northeast-2.rds.amazonaws.com:3306/study?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mariadb://web-study.cvrlrxqnrfxt.ap-northeast-2.rds.amazonaws.com:3306/study?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
     username: admin
     password: 1q2w3e4r
-
+  
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB  
+      
 mybatis:
   mapper-locations:
   - /mappers/*.xml
+  
+file:
+  path: C:/junil/jaewon/workspace/git/springboot-security-20220808/upload/
